@@ -195,4 +195,4 @@ cython_debug/
 
 
 .vscode/
-data/
+*.json
