@@ -18,7 +18,7 @@ pip install Data-Pokemon-VGC
 Or clone the repo and install locally:
 
 ```bash
-git clone https://github.com/yourusername/Data-Pokemon-VGC.git
+git clone https://github.com/Rxdsilver/Data-Pokemon-VGC.git
 cd Data-Pokemon-VGC
 pip install .
 ```
