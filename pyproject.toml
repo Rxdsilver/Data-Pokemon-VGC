@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "data_pokemon_vgc"
-version = "0.1.2"
+version = "0.1.3"
 description = "A parser and downloader for Pokémon VGC tournament data from rk9.gg"
 readme = "README.md"
 authors = [
