@@ -58,3 +58,15 @@ This will download tournament info, players, pairings, and teams, and save JSON 
 - Python 3.11+
 - Use `pytest` to run tests
 
+## Continuous Integration
+
+This project uses GitHub Actions for automated bumping version and publishing to PyPI. On every push and pull request, the workflow check commit name to trigger action or not.
+
+Example:
+
+```bash
+git commit -m "<some change> bump: patch" # 0.1.2 -> 0.1.3
+git commit -m "<some change> bump: minor" # 0.1.2 -> 0.2.0
+git commit -m "<some change> bump: major" # 0.1.2 -> 1.0.0
+```
+
