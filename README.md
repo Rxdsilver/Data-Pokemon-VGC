@@ -25,10 +25,16 @@ pip install .
 
 ## Usage
 
-Run the main script with the tournament code:
+Run this script to download tournament:
 
 ```bash
-python -m scripts.download_tournament 'RK9_URL'
+python -m scripts.download_tournament 'RK9_Code'
+```
+
+Run this script to get usage:
+
+```bash
+python -m scripts.compute_usage 'RK9_Code'
 ```
 
 This will download tournament info, players, pairings, and teams, and save JSON files in the data/ directory named with the tournament code.
