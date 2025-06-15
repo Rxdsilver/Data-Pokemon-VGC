@@ -51,4 +51,18 @@ jobs:
       - name: Push bump commit and tags
         if: steps.decide_bump.outputs.version_part != 'none'
         run: |
-          git push origin m
+          git push origin HEAD
+          git push origin --tags
+
+      - name: Install build dependencies
+        run: python -m pip install --upgrade build twine
+
+      - name: Build the package
+        run: python -m build
+
+      - name: Publish to PyPI
+        if: steps.decide_bump.outputs.version_part != 'none'
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: python -m twine upload dist/*

@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, Mock
-from tournament_parser.parser import create_tournament
+from parser.parser import create_tournament
 import os
 
 
