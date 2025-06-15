@@ -1,5 +1,7 @@
-from tournament_parser.parser import create_tournament
-from tournament_parser.save import save_players, save_pairings, save_info
+# download_tournament.py
+
+from parser.parser import create_tournament
+from parser.save import save_players, save_pairings, save_info
 
 def main():
     import argparse
