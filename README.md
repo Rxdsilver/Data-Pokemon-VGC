@@ -37,6 +37,13 @@ Run this script to get usage:
 python -m scripts.compute_usage 'RK9_Code'
 ```
 
+Run this script to get player's teams:
+```bash
+python -m scripts.export_player_teams "Hippolyte Bernard [FR]"
+```
+
+
+
 This will download tournament info, players, pairings, and teams, and save JSON files in the data/ directory named with the tournament code.
 
 ## Project Structure
