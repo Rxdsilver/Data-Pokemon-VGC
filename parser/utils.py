@@ -1,3 +1,8 @@
+from datetime import datetime
+import re
+from typing import Tuple
+
+
 BASE_URL = "https://rk9.gg"
 
 def build_roster_url(tournament_code: str) -> str:
@@ -44,34 +49,37 @@ def build_team_url(base_url: str, team_relative_url: str) -> str:
     # print(f"Fetching team URL: {base_url + team_relative_url}")
     return base_url + team_relative_url
 
-from datetime import datetime
-from typing import Tuple
-
 def parse_tournament_dates(date_str: str) -> Tuple[str, str]:
     """
-    Parse a tournament date string like 'August 16-18, 2024'
+    Parse a tournament date string like 'August 16-18, 2024' or 'May 31–June 1, 2025'
     and return a tuple of (start_date, end_date) in 'YYYY-MM-DD' format.
     """
     try:
-        # Split month from the day range
-        parts = date_str.strip().split(" ", 1)  # ['August', '16-18, 2024']
-        month = parts[0]
-        day_and_year = parts[1]  # '16-18, 2024'
+        date_str = date_str.strip().replace("–", "-")  
 
-        # Split into start and end day
-        if '-' in day_and_year:
-            day_range, year = day_and_year.split(", ")
-            start_day, end_day = day_range.split("-")
+        if "-" not in date_str:
+            parts = date_str.split(", ")
+            start_day = end_day = parts[0].split()[1]
+            year = parts[1]
+            month = parts[0].split()[0]
+
+            start_str = f"{month} {start_day}, {year}"
+            end_str = start_str
         else:
-            # Only one day (e.g. "August 16, 2024")
-            start_day = end_day = day_and_year.split(",")[0]
-            year = day_and_year.split(",")[1].strip()
+            match = re.match(r"(?P<month1>\w+)\s(?P<day1>\d+)-(?:(?P<month2>\w+)\s)?(?P<day2>\d+),\s(?P<year>\d{4})", date_str)
+            if not match:
+                raise ValueError(f"Unrecognized date format: {date_str}")
 
-        # Create date strings
-        start_str = f"{month} {start_day.strip()}, {year}"
-        end_str = f"{month} {end_day.strip()}, {year}"
+            parts = match.groupdict()
+            month1 = parts["month1"]
+            day1 = parts["day1"]
+            month2 = parts["month2"] if parts["month2"] else month1
+            day2 = parts["day2"]
+            year = parts["year"]
 
-        # Convert to YYYY-MM-DD
+            start_str = f"{month1} {day1}, {year}"
+            end_str = f"{month2} {day2}, {year}"
+
         fmt_in = "%B %d, %Y"
         fmt_out = "%Y-%m-%d"
         start_date = datetime.strptime(start_str, fmt_in).strftime(fmt_out)
